@@ -1,0 +1,25 @@
+.movies-container {
+    font-size: 18px;
+}
+
+.movie-title-container {
+    margin-bottom: 20px;
+}
+
+.movie-title-container h4 {
+    font-size: 1em;
+    letter-spacing: -0.015em;
+    color: #fff;
+}
+
+.list-movies {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (min-width: 576px) {
+    .movies-container {
+        font-size: 30px;
+    }
+}
