@@ -39,3 +39,9 @@
     width: 100%;
   }
 }
+
+@media (min-width: 768px) {
+  .product-details-card {
+    margin-bottom: 40px;
+  }
+}

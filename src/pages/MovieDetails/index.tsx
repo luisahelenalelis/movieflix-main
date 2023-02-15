@@ -1,6 +1,7 @@
 import { ReactComponent as Star } from 'assets/images/star.svg';
 import axios, { AxiosRequestConfig } from 'axios';
 import FormReview from 'components/FormReview';
+import MovieCardDetails from 'components/MovieCardDetails';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Movie } from 'types/movies';
@@ -58,16 +59,8 @@ const Details = () => {
 
   return (
     <div className="details-container">
-      <div className="movie-header-container">
-        <div className="movie-picture">
-          <img src={movie?.imgUrl} alt={movie?.title} />
-        </div>
-        <div className="movie-title">
-          <h4>{movie?.title}</h4>
-        </div>
-        <div className="movie-synopsis">
-          <p>{movie?.synopsis}</p>
-        </div>
+      <div className="movie-header-container movie-picture">
+          <MovieCardDetails movies={movie} />
       </div>
 
       {hasAnyRoles(['ROLE_MEMBER']) && (

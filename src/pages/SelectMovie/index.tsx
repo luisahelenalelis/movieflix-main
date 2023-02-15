@@ -30,7 +30,7 @@ const SelectMovies = () => {
 
   return (
     <div className="container my-4 movies-container">
-      <div className="row movie-title-container">
+      <div className="row movie-filter-container">
         <ProductFilter />
       </div>
 

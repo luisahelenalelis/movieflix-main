@@ -4,7 +4,7 @@ const ProductFilter = () => {
   return (
     <form className="product-filter-form">
       <div className="base-card product-filter-container">
-        <select name="" id="">
+        <select className="product-filter-select" name="" id="">
           <option value="">Drama</option>
           <option value="">Terror</option>
           <option value="">Comédia</option>

@@ -2,14 +2,8 @@
     font-size: 18px;
 }
 
-.movie-title-container {
+.movie-filter-container {
     margin-bottom: 20px;
-}
-
-.movie-title-container h4 {
-    font-size: 1em;
-    letter-spacing: -0.015em;
-    color: #fff;
 }
 
 .list-movies {
