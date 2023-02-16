@@ -1,0 +1,29 @@
+.movie-filter-genre-container {
+  display: flex;
+  padding: 5px 20px;
+}
+
+.movie-filter-genre-select__control {
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: -0.015em;
+  background: #6c6c6c !important;
+  color: #ffffff !important;
+  height: 50px;
+  width: 180px;
+}
+
+.movie-filter-genre-select__placeholder {
+  color: #9e9e9e !important;
+}
+
+.movie-filter-genre-select__indicator-separator {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .movie-filter-genre-container {
+    flex-grow: 1;
+    margin-bottom: 0;
+  }
+}
