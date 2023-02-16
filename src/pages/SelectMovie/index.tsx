@@ -1,24 +1,42 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import { AxiosRequestConfig } from 'axios';
 import MovieCard from 'components/MovieCard';
 import Pagination from 'components/Pagination';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Movie } from 'types/movies';
 import { SpringPage } from 'types/spring-page';
 import { BASE_URL, requestBackend } from 'util/requests';
 import { getAuthData } from 'util/storage';
-import Filter from 'components/Filter';
+import Filter, { MovieFilterData } from 'components/Filter';
 
 import './styles.css';
+
+type ControlComponentsData = {
+  activePage: number;
+  filterData: MovieFilterData;
+};
 
 const SelectMovies = () => {
   const [movies, setMovies] = useState<SpringPage<Movie>>();
 
-  useEffect(() => {
-    getMovies(0);
-  }, []);
+  const [controlComponentsData, setControlComponentsData] =
+    useState<ControlComponentsData>({
+      activePage: 0,
+      filterData: { name: '', genres: null },
+    });
 
-  const getMovies = (pageNumber: number) => {
+  const handlePageChange = (pageNumber: number) => {
+    setControlComponentsData({
+      activePage: pageNumber,
+      filterData: controlComponentsData.filterData,
+    });
+  };
+
+  const handleSubmitFilter = (data: MovieFilterData) => {
+    setControlComponentsData({ activePage: 0, filterData: data });
+  };
+
+  const getMovies = useCallback(() => {
     const config: AxiosRequestConfig = {
       method: 'GET',
       url: BASE_URL + '/movies',
@@ -26,20 +44,26 @@ const SelectMovies = () => {
         Authorization: `Bearer ${getAuthData().access_token}`,
       },
       params: {
-        page: pageNumber,
+        page: controlComponentsData.activePage,
         size: 4,
+        genreId: controlComponentsData.filterData.genres?.id,
       },
     };
 
     requestBackend(config).then((response) => {
       setMovies(response.data);
+      console.log(response.data)
     });
-  };
+  }, [controlComponentsData]);
+
+  useEffect(() => {
+    getMovies();
+  }, [getMovies]);
 
   return (
     <div className="container my-4 movies-container">
       <div className="row movie-filter-container">
-        <Filter />
+        <Filter onSubmitFilter={handleSubmitFilter} />
       </div>
 
       <div className="row list-movies">
@@ -50,7 +74,12 @@ const SelectMovies = () => {
             </Link>
           </div>
         ))}
-        <Pagination pageCount={movies ? movies.totalPages : 0} range={3} onChange={getMovies}/>
+        <Pagination
+          forcePage={movies?.number}
+          pageCount={movies ? movies.totalPages : 0}
+          range={3}
+          onChange={handlePageChange}
+        />
       </div>
     </div>
   );
